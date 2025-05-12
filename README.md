@@ -71,3 +71,6 @@ Welcome to this encrypted, integrity-verified file-sharing system! Here, we blen
 - **Lightweight & educational** – Great for learning encryption & hashing
 
 Ready to share files securely?  **Let’s transfer!**
+
+With great code comes great responsibility... this is my gift, my curse. Who am I? Your friendly neighbourhood coder.
+
