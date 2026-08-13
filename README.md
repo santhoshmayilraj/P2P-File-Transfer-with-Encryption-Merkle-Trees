@@ -88,6 +88,7 @@ SHA-256 hashes are generated for individual chunks and combined recursively to p
 
 The root hash can be used to detect changes or corruption within the transferred data.
 
+```text
 File Structure
 ├── client.py               # Handles file uploads
 ├── client_request.py       # Requests file downloads
@@ -98,6 +99,7 @@ File Structure
 ├── merkel_tree.py          # Generates Merkle tree hashes
 ├── filename_metadata.csv   # File metadata
 └── chunk_metadata.csv      # Chunk and hash metadata
+```
 Running the Project
 Start the Server
 python server.py
