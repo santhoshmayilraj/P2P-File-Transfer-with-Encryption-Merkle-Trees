@@ -1,76 +1,117 @@
-# **P2P File Transfer with Encryption & Merkle Trees**
+# P2P File Transfer with Encryption & Merkle Trees
 
-Hi Again, This is Santhosh, your friendly neighbourhood coder. Alright, let’s do this one last time—this is **Secure P2P File Transfer**.
+A peer-to-peer file transfer project exploring chunk-based file transmission, basic encryption, hashing, and Merkle tree-based integrity verification.
 
-Welcome to this encrypted, integrity-verified file-sharing system! Here, we blend peer-to-peer networking, Caesar cipher encryption, and Merkle Trees to ensure your files are transferred securely and remain tamper-proof.
+The project splits files into chunks, processes them before transfer, and uses a Merkle tree to verify whether the transferred data has been modified or corrupted.
 
-## 🔑 Key Features
-- ✔ **Encrypted Chunks** – Files split & secured with Caesar cipher
-- ✔ **Merkle Root Verification** – Ensures zero tampering during transfer
-- ✔ **P2P Architecture** – Direct client-server file exchange
-- ✔ **Lightweight & Fast** – Chunk-based processing for efficiency
+## Overview
 
-## 🛠 How It Works
+The system consists of a client and server that communicate to transfer files in chunks.
 
-### 📤 Uploading a File (Client → Server)
-1. Client sends a file (split into 10-byte chunks)
-2. Server:
-   - Encrypts each chunk (`caesar_encrypt`)
-   - Generates SHA-256 hashes per chunk
-   - Builds a Merkle Tree for integrity checks
-   - Stores metadata (`filename_metadata.csv`, `chunk_metadata.csv`)
+The main concepts explored are:
 
-### 📥 Downloading a File (Server → Client)
-1. Client requests a file
-2. Server:
-   - Verifies integrity using Merkle Root Hash
-   - Decrypts chunks (`caesar_decrypt`)
-   - Sends back the original file (if intact)
+- Peer-to-peer file transfer
+- Chunk-based file processing
+- Caesar cipher encryption
+- SHA-256 hashing
+- Merkle trees
+- File integrity verification
+- Client-server communication
 
-## 🔒 Encryption & Integrity
+## How It Works
 
-- **Caesar Cipher** – Shifts ASCII chars by +3 (encrypt) / -3 (decrypt)
-- **Merkle Tree** – Detects any file corruption via root hash
+### Upload
 
-## How to Run
+```text
+File
+ │
+ ▼
+Split into Chunks
+ │
+ ▼
+Encrypt Chunks
+ │
+ ▼
+SHA-256 Hashes
+ │
+ ▼
+Build Merkle Tree
+ │
+ ▼
+Transfer & Store
 
-### Steps
+The client divides the file into 10-byte chunks. The chunks are encrypted before being processed and transferred.
 
-1. **Start the Server**
-    ```bash
-    python server.py
-    ```
+SHA-256 hashes are generated for the chunks and used to construct a Merkle tree. The resulting Merkle root represents the integrity state of the file.
 
-2. **Upload a File**
-    ```bash
-    python client.py
-    ```
+Download
+Stored Chunks
+ │
+ ▼
+Request File
+ │
+ ▼
+Verify Integrity
+ │
+ ▼
+Decrypt Chunks
+ │
+ ▼
+Reconstruct File
 
-3. **Download a File**
-    ```bash
-    python client_request.py
-    ```
+During retrieval, the stored data is checked against the Merkle root before the encrypted chunks are decrypted and reconstructed into the original file.
 
-## 📂 File Structure
+Encryption & Integrity
+Caesar Cipher
 
-```
-├── client.py               # Uploads files to server  
-├── client_request.py       # Requests file download  
-├── server.py               # Handles uploads  
-├── server_response.py      # Handles downloads  
-├── caesar_encrypt.py       # Encrypts chunks  
-├── caesar_decrypt.py       # Decrypts chunks  
-├── merkel_tree.py          # Merkle Root Hash generator  
-├── filename_metadata.csv   # File metadata storage  
-└── chunk_metadata.csv      # Chunk hashes & encrypted data  
-```
+The project uses a Caesar cipher that shifts ASCII characters by a fixed offset:
 
-## 🌟 Why This Project?
-- **End-to-end secure transfer** (Encryption + Integrity Check)
-- **No middleman** – Direct P2P exchange
-- **Lightweight & educational** – Great for learning encryption & hashing
+Encryption:  +3
+Decryption:  -3
 
-Ready to share files securely?  **Let’s transfer!**
+This is implemented as a learning exercise and is not considered secure cryptography for real-world file protection.
 
-With great code comes great responsibility... this is my gift, my curse. Who am I? Your friendly neighbourhood coder.
+Merkle Tree
 
+SHA-256 hashes are generated for individual chunks and combined recursively to produce a Merkle root.
+
+             Root
+            /    \
+          H12    H34
+         /  \   /  \
+       H1   H2 H3   H4
+       │    │  │    │
+      C1   C2 C3   C4
+
+The root hash can be used to detect changes or corruption within the transferred data.
+
+File Structure
+├── client.py               # Handles file uploads
+├── client_request.py       # Requests file downloads
+├── server.py               # Handles incoming uploads
+├── server_response.py      # Handles file responses
+├── caesar_encrypt.py       # Encrypts file chunks
+├── caesar_decrypt.py       # Decrypts file chunks
+├── merkel_tree.py          # Generates Merkle tree hashes
+├── filename_metadata.csv   # File metadata
+└── chunk_metadata.csv      # Chunk and hash metadata
+Running the Project
+Start the Server
+python server.py
+Upload a File
+python client.py
+Request a File
+python client_request.py
+What I Explored
+
+This project was built to understand how several fundamental concepts in computer systems and security fit together:
+
+Network-based file transfer
+Chunking and file reconstruction
+Symmetric transformation of data
+Cryptographic hashing
+Merkle trees
+Data integrity verification
+Client-server communication
+
+The project focuses on understanding the underlying mechanisms rather than providing production-grade file security.
