@@ -39,12 +39,14 @@ Build Merkle Tree
  │
  ▼
 Transfer & Store
+```
 
 The client divides the file into 10-byte chunks. The chunks are encrypted before being processed and transferred.
 
 SHA-256 hashes are generated for the chunks and used to construct a Merkle tree. The resulting Merkle root represents the integrity state of the file.
 
 Download
+```text
 Stored Chunks
  │
  ▼
@@ -58,6 +60,7 @@ Decrypt Chunks
  │
  ▼
 Reconstruct File
+```
 
 During retrieval, the stored data is checked against the Merkle root before the encrypted chunks are decrypted and reconstructed into the original file.
 
