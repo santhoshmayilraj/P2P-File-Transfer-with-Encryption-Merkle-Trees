@@ -102,11 +102,17 @@ File Structure
 ```
 Running the Project
 Start the Server
+```text
 python server.py
+```
 Upload a File
+```text
 python client.py
+```
 Request a File
+```text
 python client_request.py
+```
 What I Explored
 
 This project was built to understand how several fundamental concepts in computer systems and security fit together:
